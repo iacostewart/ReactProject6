@@ -1,15 +1,15 @@
-var router = require('express').Router();
-var sequelize = require('../db');
-var Log = sequelize.import('../models/log');
-var User = sequelize.import('../models/user');
-var Definition = sequelize.import('../models/definition');
-
+let router = require('express').Router();
+let sequelize = require('../db');
+let Log = sequelize.import('../models/log');
+let User = sequelize.import('../models/user');
+let Definition = sequelize.import('../models/definition');
+let Prebuilt = sequelize.import('../models/prebuilt.js');
 router.post('/', function(req, res) {
     // req has some body properties that have a username and pwd
-    var decknametype = req.body.log.decknametype; 
-    var question = req.body.log.question; 
-	var answer = req.body.log.answer;
-	var user = req.user;
+    let decknametype = req.body.log.decknametype; 
+    let question = req.body.log.question; 
+	let answer = req.body.log.answer;
+	let user = req.user;
    
 
     // Use our sequelize model to create log
@@ -31,7 +31,7 @@ router.post('/', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-	var userid = req.user.id;
+	let userid = req.user.id;
 	Log
 	.findAll({
 		where: { owner: userid }
@@ -50,7 +50,7 @@ router.get('/', function(req, res) {
 //This will retrieve one workout specified by the log id
 //This will retrieve one workout specified by the log id
 router.get('/:id', function(req, res) {
-	var data = req.params.id;
+	let data = req.params.id;
 	//console.log(data); here for testing purposes
 	Log
 		.findOne({
@@ -68,10 +68,10 @@ router.get('/:id', function(req, res) {
 
 //This will return the data from the log that was updated
 router.put('/', function(req, res) {
-	var decknametype = req.body.log.decknametype; 
-    var question = req.body.log.question; 
-	var answer = req.body.log.answer;
-	var user = req.user;
+	let decknametype = req.body.log.decknametype; 
+    let question = req.body.log.question; 
+	let answer = req.body.log.answer;
+	let user = req.user;
     console.log(req);
     Log
     	.update(
@@ -95,7 +95,7 @@ router.put('/', function(req, res) {
 
 
 router.delete('/', function(req, res) {
-	var data = req.body.log.id;
+	let data = req.body.log.id;
 	Log
 		.destroy({
 			where: { id: data }
